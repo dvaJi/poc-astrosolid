@@ -1,0 +1,49 @@
+---
+// Component Imports
+import Counter from "../components/Counter";
+import User from "../components/User";
+
+let data = { msg: "" };
+try {
+  const res = await fetch("http://localhost:3000/api/hello-world", {
+    method: "POST",
+    body: JSON.stringify({ message: "Solid" }),
+  });
+  data = await (res.json() as Promise<{ msg: string }>);
+} catch (err) {
+  console.log(err);
+  data = {
+    msg: "Error",
+  };
+}
+
+// Full Astro Component Syntax:
+// https://docs.astro.build/core-concepts/astro-components/
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      html,
+      body {
+        font-family: system-ui;
+        margin: 0;
+      }
+      body {
+        padding: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="grid place-items-center h-screen content-center">
+      <Counter client:visible>
+        <h1 class="text-4xl">{data.msg}</h1>
+      </Counter>
+      <User client:visible />
+    </main>
+  </body>
+</html>
