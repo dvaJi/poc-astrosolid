@@ -2,10 +2,11 @@
 // Component Imports
 import Counter from "../components/Counter";
 import User from "../components/User";
+import { BASE_API } from "../utils/url";
 
 let data = { msg: "" };
 try {
-  const res = await fetch("http://localhost:3000/api/hello-world", {
+  const res = await fetch(`${BASE_API}/api/hello-world`, {
     method: "POST",
     body: JSON.stringify({ message: "Solid" }),
   });

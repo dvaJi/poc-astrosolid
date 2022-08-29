@@ -1,7 +1,7 @@
 import { createResource, createSignal } from "solid-js";
+import { BASE_API } from "../utils/url";
 
-const fetchUser = async (id) =>
-  (await fetch(`http://localhost:3000/api/users`)).json();
+const fetchUser = async (id) => (await fetch(`${BASE_API}/api/users`)).json();
 
 export default function User() {
   const [userId, setUserId] = createSignal();

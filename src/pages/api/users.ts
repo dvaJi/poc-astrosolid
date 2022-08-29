@@ -1,3 +1,5 @@
+import fetch from "node-fetch";
+
 export async function get({ query }) {
   console.log("users");
 
@@ -6,7 +8,7 @@ export async function get({ query }) {
   try {
     const res = await fetch("https://randomuser.me/api/");
     const data = await res.json();
-    randomUser = data.results[0];
+    randomUser = (data as any).results[0];
   } catch (err) {
     randomUser = { msg: "Error" };
   }
