@@ -1,8 +1,6 @@
 import fetch from "node-fetch";
 
-export async function get({ query }) {
-  console.log("users");
-
+export async function get() {
   let randomUser = null;
 
   try {

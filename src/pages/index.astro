@@ -3,16 +3,20 @@
 import Counter from "../components/Counter";
 import User from "../components/User";
 import { BASE_API } from "../utils/url";
+import { get as getHelloWorld } from "./api/hello-world.json";
 
 let data = { msg: "" };
 try {
-  const res = await fetch(`${BASE_API}/api/hello-world`, {
-    method: "POST",
-    body: JSON.stringify({ message: "Solid" }),
+  console.log("Init data");
+  const res = await getHelloWorld({
+    params: {},
+    request: {} as any,
   });
-  data = await (res.json() as Promise<{ msg: string }>);
+  data = JSON.parse(res.body.toString());
+  console.log(data);
 } catch (err) {
-  console.log(err);
+  console.log("ERROR");
+  console.error(err);
   data = {
     msg: "Error",
   };

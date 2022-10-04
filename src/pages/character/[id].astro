@@ -1,0 +1,39 @@
+---
+import GenshinData from "genshin-data";
+
+const { id } = Astro.params;
+const data = new GenshinData({ language: "english" });
+const characters = await data.characters();
+const character = characters.find((c) => c.id === id);
+
+export async function getStaticPaths() {
+  const data = new GenshinData({ language: "english" });
+  const characters = await data.characters();
+  return characters.map((c) => ({ params: { id: c.id } }));
+}
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      html,
+      body {
+        font-family: system-ui;
+        margin: 0;
+      }
+      body {
+        padding: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="grid place-items-center h-screen content-center">
+      {character.name}
+      {character.element}
+    </main>
+  </body>
+</html>
