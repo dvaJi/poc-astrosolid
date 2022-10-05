@@ -11,7 +11,10 @@ export async function get() {
     randomUser = { msg: "Error" };
   }
 
-  return new Response(JSON.stringify(randomUser), {
-    status: 200,
-  });
+  // return new Response(JSON.stringify(randomUser), {
+  //   status: 200,
+  // });
+  return {
+    body: JSON.stringify(randomUser),
+  };
 }

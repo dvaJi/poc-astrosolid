@@ -1,0 +1,41 @@
+---
+export async function getStaticPaths() {
+  const locales = ["en", "fr", "es"];
+  const localeToISOMap = {
+    en: "english",
+    fr: "french",
+    es: "spanish",
+  };
+  const json = await import(`../../../_data/gi/data_english.min.json`);
+  const characters = json[`characters`];
+  return locales.map((locale) => ({
+    params: { lang: locale },
+    props: { characters },
+  }));
+}
+
+const { characters } = Astro.props;
+
+// Full Astro Component Syntax:
+// https://docs.astro.build/core-concepts/astro-components/
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <main class="grid place-items-center h-screen content-center">
+      {
+        characters.map((data) => (
+          <li>
+            <a href={`/character/${data.id}`}>{data.name}</a>
+          </li>
+        ))
+      }
+    </main>
+  </body>
+</html>
